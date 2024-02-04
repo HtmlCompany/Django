@@ -1,15 +1,19 @@
-from django.shortcuts import render
-from django.http import HttpResponse, HttpResponseNotFound, Http404
+from django.shortcuts import render, redirect
+# from forms import CategForm
 
 # Create your views here.
 
 def index(request):
-    return HttpResponse("<h1>Main page</h1>")
+    return render(request, 'articles/index.html')
 
-def categories(request, cat_id: int):
-    if cat_id > 5:
-        raise Http404()
-    return HttpResponse(F"<h2>Categories</h2><p>category: {cat_id}</p>")
+def categories(request):
+    if request.method == 'POST':
+        form = CategForm(request.POST)
+        if form.is_valid():
+            return redirect(to='articles:index')
+        else:
+            return render(request, 'articles/categories.html', {'form': form})
+    return render(request, 'articles/categories.html', {'form': CategForm()})
 
 def page_not_found(request, exeption):
-    return HttpResponseNotFound('404')
+    return render(request, 'articles/404.html')

@@ -24,4 +24,4 @@ urlpatterns = [
     path('', include('articles.urls')),
 ]
 
-handler404 = page_not_found
+# handler404 = page_not_found
