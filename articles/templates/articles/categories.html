@@ -1,11 +1,11 @@
-{% extends "noteapp/base.html" %}
+{% extends "articles/base.html" %}
 
 {% block content %}
 
 <form method="POST" action="{% url 'articles:categories' %}">
     {% csrf_token %}
     <div style="padding: 10px">
-        <label>Enter the tag name:
+        <label>Додати розділ:
             {{form.name}}
         </label>
         <span>{{ form.errors.name }}</span>

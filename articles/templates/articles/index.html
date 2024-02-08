@@ -2,12 +2,31 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8"/>
-    <title>Organizer</title>
+    <title>Computer science portal</title>
     <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@latest/css/pico.min.css"/>
 </head>
 <body>
 <main class="container">
-    <h1>Main page</h1>
+    <nav style="margin-bottom: 20px; border-bottom: 2px solid; padding-left: 30px">
+        <ul>
+            <li><a href="{% url 'articles:art' %}" role="button">Подати статтю</a></li>
+            <li><a href="{% url 'articles:categories' %}" role="button">Додати розділ</a></li>
+        </ul>
+    </nav>
+
+    {% for art in articles %}
+    <ul>
+        <li>
+            {% if not art.done %}
+            <a href="{% url 'articles:detail' art.id %}" role="button" class="outline"> {{ art.name }} </a>
+            <a href="{% url 'articles:check' art.id %}" role="button"> Mark Done </a>
+            <a href="{% url 'articles:delete_article' art.id %}" role="button" class="contrast"> Delete note </a>
+            {% else %}
+            <a href="{% url 'art:detail' artticles.id %}" role="button" class="secondary"><s>{{ art.name }}</s></a>
+            {% endif %}
+        </li>
+    </ul>
+    {% endfor %}
 </main>
 </body>
 </html>
